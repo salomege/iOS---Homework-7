@@ -1,4 +1,4 @@
-import Cocoa
+ import Cocoa
 
 class SuperEnemy {
     var name: String
@@ -52,12 +52,15 @@ struct Spiderman: Superhero {
     }
     
     func performSuperPower(target: SuperEnemy) -> Int {
-        
-        //ეს ფუნქცია ვერ დავწერე :(((
-        
+            if let (power, powerValue) = superPowers.randomElement() {
+                target.hitPoint -= powerValue
+                superPowers.removeValue(forKey: power)
+                print("Spiderman used \(power) superpower. Enemy's hit points: \(target.hitPoint)")
+            }
+            
+            return target.hitPoint
         }
-    
-}
+    }
 class SuperheroSquad<T: Superhero> {
     var superheros: [T]
     init(superheros: [T]) {
@@ -70,3 +73,7 @@ class SuperheroSquad<T: Superhero> {
             }
         }
     }
+
+let spiderman = Spiderman(name: "Peter Parker", alias: "Spiderman", isEvil: false, superPowers: ["Web Slinging": 30, "Super Strength": 40])
+let squad = SuperheroSquad(superheros: [spiderman])
+squad.listSuperheroes()
